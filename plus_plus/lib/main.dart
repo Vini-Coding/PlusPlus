@@ -1,37 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:introduction_screen/introduction_screen.dart';
+import 'package:plus_plus/pages/homepage.dart';
+import 'package:plus_plus/pages/introscreens.dart';
 
 void main() {
-  runApp(const PlusPLus());
+  runApp(
+    const PlusPlus(),
+  );
 }
 
-class PlusPLus extends StatefulWidget {
-  const PlusPLus({Key? key}) : super(key: key);
+class PlusPlus extends StatelessWidget {
+  const PlusPlus({Key? key}) : super(key: key);
 
-  @override
-  State<PlusPLus> createState() => _PlusPLusState();
-}
-
-class _PlusPLusState extends State<PlusPLus> {
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: HomePage(),
-    );
-  }
-}
-
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
-
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-
+    return MaterialApp(
+      routes: {
+        '/': (context) => const IntroScreens(),
+        'home':(context) => const HomePage(),
+      },
+      debugShowCheckedModeBanner: false,
     );
   }
 }
