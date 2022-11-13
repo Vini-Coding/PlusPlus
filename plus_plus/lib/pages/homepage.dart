@@ -1,3 +1,5 @@
+import 'dart:io';
+import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -8,6 +10,18 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  File? _image;
+  Future getImage() async {
+    final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (image == null) return;
+
+    final imageTemporary = File(image.path);
+
+    setState(() {
+      _image = imageTemporary;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,6 +37,7 @@ class _HomePageState extends State<HomePage> {
                 Color.fromARGB(255, 204, 14, 0),
                 Colors.red,
                 Color.fromARGB(255, 255, 95, 83),
+                Color.fromARGB(255, 255, 160, 153),
               ],
               begin: Alignment.centerLeft,
               end: Alignment.centerRight,
@@ -69,7 +84,9 @@ class _HomePageState extends State<HomePage> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        const SizedBox(height: 30,),
+                        const SizedBox(
+                          height: 30,
+                        ),
                         const Padding(
                           padding: EdgeInsets.all(20),
                           child: Text(
@@ -92,7 +109,9 @@ class _HomePageState extends State<HomePage> {
                             hintText: "Enter a number...",
                           ),
                         ),
-                        const SizedBox(height: 20,),
+                        const SizedBox(
+                          height: 20,
+                        ),
                         const Padding(
                           padding: EdgeInsets.all(20),
                           child: Text(
@@ -100,6 +119,50 @@ class _HomePageState extends State<HomePage> {
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 20,
+                            ),
+                          ),
+                        ),
+                        RectangularButton(
+                          title: 'Pick image from gallery',
+                          icon: Icons.image,
+                          onClick: getImage,
+                        ),
+                        const SizedBox(
+                          height: 110,
+                        ),
+                        Container(
+                          margin: const EdgeInsets.all(20),
+                          width: 300,
+                          height: 80,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50),
+                            boxShadow: const [
+                              BoxShadow(
+                                  color: Color.fromRGBO(0, 0, 0, 0.57),
+                                  blurRadius: 4),
+                            ],
+                            gradient: const LinearGradient(
+                              colors: [
+                                Color.fromARGB(255, 197, 13, 0),
+                                Color.fromARGB(255, 255, 20, 4),
+                                Color.fromARGB(255, 255, 95, 83),
+                                Color.fromARGB(255, 255, 160, 153),
+                              ],
+                              begin: Alignment.centerLeft,
+                              end: Alignment.centerRight,
+                            ),
+                          ),
+                          child: TextButton(
+                            onPressed: () {
+                              Navigator.pushNamed(context, 'count');
+                            },
+                            child: const Text(
+                              'Start Count',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                              ),
                             ),
                           ),
                         ),
@@ -114,4 +177,34 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+}
+
+Widget RectangularButton({
+  required String title,
+  required IconData icon,
+  required VoidCallback onClick,
+}) {
+  return SizedBox(
+    width: 400,
+    height: 60,
+    child: ElevatedButton(
+      style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all<Color>(
+            const Color.fromARGB(255, 255, 95, 83)),
+      ),
+      onPressed: onClick,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          children: [
+            Icon(icon),
+            const SizedBox(
+              width: 50,
+            ),
+            Text(title),
+          ],
+        ),
+      ),
+    ),
+  );
 }

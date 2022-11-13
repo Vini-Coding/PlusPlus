@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:introduction_screen/introduction_screen.dart';
 import 'package:plus_plus/pages/count.dart';
 import 'package:plus_plus/pages/homepage.dart';
 import 'package:plus_plus/pages/introscreens.dart';

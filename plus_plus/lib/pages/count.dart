@@ -10,8 +10,15 @@ class Count extends StatefulWidget {
 class _CountState extends State<Count> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          "Count Page",
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: Colors.red,
+      ),
+      body: Container(),
     );
   }
 }
