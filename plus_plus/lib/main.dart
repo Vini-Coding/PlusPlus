@@ -1,10 +1,13 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:plus_plus/pages/count.dart';
 import 'package:plus_plus/pages/homepage.dart';
 import 'package:plus_plus/pages/introscreens.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(
     const PlusPlus(),
   );

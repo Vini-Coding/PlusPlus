@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:plus_plus/main.dart';
-import 'package:plus_plus/pages/count.dart';
 
 class HomePage extends StatefulWidget {
   static const routeName = '/home';
