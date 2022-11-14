@@ -1,8 +1,11 @@
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:plus_plus/main.dart';
+import 'package:plus_plus/pages/count.dart';
 
 class HomePage extends StatefulWidget {
+  static const routeName = '/home';
   const HomePage({Key? key}) : super(key: key);
 
   @override
@@ -20,6 +23,26 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       _image = imageTemporary;
     });
+  }
+
+  final formKey = GlobalKey<FormState>();
+  final limitController = TextEditingController();
+
+  String? validateLimit(String? value) {
+    if (value == null || int.tryParse(value) == null) {
+      return "Set the capacity limit!";
+    }
+    return null;
+  }
+
+  void nextPage(BuildContext context) {
+    if (formKey.currentState!.validate()) {
+      Navigator.pushNamed(
+        context,
+        '/count',
+        arguments: Arguments(txtInput: int.parse(limitController.text), image: _image),
+      );
+    } 
   }
 
   @override
@@ -97,16 +120,22 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                         ),
-                        TextField(
-                          keyboardType: TextInputType.number,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8),
-                              borderSide: BorderSide.none,
+                        Form(
+                          key: formKey,
+                          child: TextFormField(
+                            validator: validateLimit,
+                            controller: limitController,
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8),
+                                borderSide: BorderSide.none,
+                              ),
+                              filled: true,
+                              fillColor:
+                                  const Color.fromARGB(255, 226, 226, 226),
+                              hintText: "Enter a number...",
                             ),
-                            filled: true,
-                            fillColor: const Color.fromARGB(255, 226, 226, 226),
-                            hintText: "Enter a number...",
                           ),
                         ),
                         const SizedBox(
@@ -154,7 +183,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                           child: TextButton(
                             onPressed: () {
-                              Navigator.pushNamed(context, 'count');
+                              nextPage(context);
                             },
                             child: const Text(
                               'Start Count',

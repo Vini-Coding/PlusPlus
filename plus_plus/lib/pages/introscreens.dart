@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
+import 'package:plus_plus/main.dart';
 
 class IntroScreens extends StatelessWidget {
+  static const routeName = '/';
   const IntroScreens({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,10 +75,12 @@ class IntroScreens extends StatelessWidget {
           ),
         ],
         onDone: () {
-          Navigator.pushNamed(context, 'home');
+          Navigator.pushReplacementNamed(context, '/home');
+          //Set firstEntry = false;
         },
         onSkip: () {
-          Navigator.pushNamed(context, 'home');
+          Navigator.pushReplacementNamed(context, '/home');
+          //Set firstEntry = false;
         },
         showSkipButton: true,
         skip: const Text(
