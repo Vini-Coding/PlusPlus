@@ -2,7 +2,6 @@ import 'dart:io';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:plus_plus/main.dart';
-import 'package:plus_plus/pages/homepage.dart';
 
 class Count extends StatefulWidget {
   static const routeName = '/count';

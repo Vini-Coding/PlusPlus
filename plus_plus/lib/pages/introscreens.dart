@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class IntroScreens extends StatelessWidget {
   static const routeName = '/';
   const IntroScreens({Key? key}) : super(key: key);
+
+  _storeIntroScreens() async {
+    int isViewed = 0;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('Intro', isViewed);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,11 +81,13 @@ class IntroScreens extends StatelessWidget {
             ),
           ),
         ],
-        onDone: () {
+        onDone: () async {
+          await _storeIntroScreens();
           Navigator.pushReplacementNamed(context, '/home');
           //Set firstEntry = false;
         },
-        onSkip: () {
+        onSkip: () async {
+          await _storeIntroScreens();
           Navigator.pushReplacementNamed(context, '/home');
           //Set firstEntry = false;
         },
