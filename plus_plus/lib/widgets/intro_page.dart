@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 
-PageViewModel IntroPage({
-  required String title, 
-  required String body, 
+PageViewModel introPage({
+  required String title,
+  required String body,
   required String imagePath,
 }) {
   return PageViewModel(

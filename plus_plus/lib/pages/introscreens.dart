@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:plus_plus/pages/homepage.dart';
-import 'package:plus_plus/widgets/introPage.dart';
+import 'package:plus_plus/widgets/intro_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class IntroScreens extends StatelessWidget {
@@ -26,19 +26,19 @@ class IntroScreens extends StatelessWidget {
         globalBackgroundColor: Colors.white,
         scrollPhysics: const BouncingScrollPhysics(),
         pages: [
-          IntroPage(
+          introPage(
             title: 'Start your journey with Plus+',
             body:
                 'Plus+ is a manual counting app made to ease the capacity management of establishments.',
             imagePath: 'assets/vectors/one.png',
           ),
-          IntroPage(
+          introPage(
             title: 'Increment or Decrement',
             body:
                 'Press the "Enter" button whenever a customer walks in and press the "Exit" button whenever the costumer walks out.',
             imagePath: 'assets/vectors/two.png',
           ),
-          IntroPage(
+          introPage(
             title: 'Customize!',
             body:
                 'You also can choose a background image and set a desired limit in the counting.',

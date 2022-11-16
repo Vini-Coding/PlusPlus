@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:plus_plus/main.dart';
-import 'package:plus_plus/widgets/rectangularButton.dart';
+import 'package:plus_plus/widgets/rectangular_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
