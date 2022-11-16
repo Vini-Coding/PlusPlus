@@ -12,6 +12,11 @@ class IntroScreens extends StatelessWidget {
     await prefs.setInt('Intro', isViewed);
   }
 
+  void goToHome(BuildContext context) async {
+    await _storeIntroScreens();
+    Navigator.pushReplacementNamed(context, '/home');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,11 +68,13 @@ class IntroScreens extends StatelessWidget {
           PageViewModel(
             titleWidget: const Padding(
               padding: EdgeInsets.only(top: 100),
-              child: Text("Customize!",
-                  style: TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                  )),
+              child: Text(
+                "Customize!",
+                style: TextStyle(
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
             body:
                 "You also can choose a background image and set a desired limit in the counting.",
@@ -81,16 +88,8 @@ class IntroScreens extends StatelessWidget {
             ),
           ),
         ],
-        onDone: () async {
-          await _storeIntroScreens();
-          Navigator.pushReplacementNamed(context, '/home');
-          //Set firstEntry = false;
-        },
-        onSkip: () async {
-          await _storeIntroScreens();
-          Navigator.pushReplacementNamed(context, '/home');
-          //Set firstEntry = false;
-        },
+        onDone: () => goToHome(context),
+        onSkip: () => goToHome(context),
         showSkipButton: true,
         skip: const Text(
           'Skip',

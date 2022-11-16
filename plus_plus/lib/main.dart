@@ -33,7 +33,6 @@ class PlusPlus extends StatelessWidget {
     return MaterialApp(
       initialRoute: isViewed != 0 ? IntroScreens.routeName : HomePage.routeName,
       routes: {
-        IntroScreens.routeName: (context) => const IntroScreens(),
         HomePage.routeName: (context) => const HomePage(),
         Count.routeName: (context) => const Count(),
       },

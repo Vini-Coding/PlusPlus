@@ -20,14 +20,14 @@ class _CountState extends State<Count> {
     setState(() {
       count--;
     });
-    print(count);
+    debugPrint("$count");
   }
 
   void increment() {
     setState(() {
       count++;
     });
-    print(count);
+    debugPrint("$count");
   }
 
   bool get isEmpty => count == 0;
@@ -55,6 +55,8 @@ class _CountState extends State<Count> {
           ),
         ),
         backgroundColor: Colors.red,
+        elevation: null,
+        shadowColor: Colors.red,
       ),
       body: Container(
         decoration: BoxDecoration(
@@ -67,7 +69,8 @@ class _CountState extends State<Count> {
         ),
         child: BackdropFilter(
           filter: ImageFilter.blur(
-            sigmaX: 10,
+            sigmaX: 7,
+            sigmaY: 7,
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

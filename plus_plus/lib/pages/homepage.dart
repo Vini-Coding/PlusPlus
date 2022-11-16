@@ -1,7 +1,9 @@
 import 'dart:io';
+import 'dart:ui';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:plus_plus/main.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
   static const routeName = '/home';
@@ -13,14 +15,35 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   File? _image;
+
+  @override
+  void initState() {
+    super.initState();
+    loadField();
+  }
+
+  Future<void> loadField() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      String? pathString = prefs.getString("image");
+      if (pathString != null) {
+        _image = File(pathString);
+      }
+      limitController.text = prefs.getString("limit") ?? "";
+    });
+  }
+
   Future getImage() async {
     final image = await ImagePicker().pickImage(source: ImageSource.gallery);
     if (image == null) return;
 
     final imageTemporary = File(image.path);
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString("image", imageTemporary.path);
 
     setState(() {
       _image = imageTemporary;
+      showSnackBar(context, "Background image updated succesfully");
     });
   }
 
@@ -34,14 +57,33 @@ class _HomePageState extends State<HomePage> {
     return null;
   }
 
-  void nextPage(BuildContext context) {
+  Future<void> nextPage(BuildContext context) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('limit', limitController.text);
     if (formKey.currentState!.validate()) {
       Navigator.pushNamed(
         context,
         '/count',
-        arguments: Arguments(txtInput: int.parse(limitController.text), image: _image),
+        arguments:
+            Arguments(txtInput: int.parse(limitController.text), image: _image),
       );
-    } 
+    }
+  }
+
+  void showSnackBar(BuildContext context, String message) {
+    final snackBar = SnackBar(
+      content: Text(
+        message,
+        style: const TextStyle(
+          fontWeight: FontWeight.w700,
+          fontSize: 14,
+        ),
+        textAlign: TextAlign.center,
+      ),
+      backgroundColor: Colors.green,
+      padding: const EdgeInsets.all(20),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
   @override
@@ -135,6 +177,10 @@ class _HomePageState extends State<HomePage> {
                                   const Color.fromARGB(255, 226, 226, 226),
                               hintText: "Enter a number...",
                             ),
+                            onFieldSubmitted: (String message) {
+                              message = "Limit updated succesfully";
+                              showSnackBar(context, message);
+                            },
                           ),
                         ),
                         const SizedBox(
@@ -150,10 +196,11 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                         ),
-                        RectangularButton(
+                        rectangularButton(
                           title: 'Pick image from gallery',
                           icon: Icons.image,
                           onClick: getImage,
+                          image: _image,
                         ),
                         const SizedBox(
                           height: 110,
@@ -207,30 +254,48 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-Widget RectangularButton({
+Widget rectangularButton({
   required String title,
   required IconData icon,
   required VoidCallback onClick,
+  File? image,
 }) {
-  return SizedBox(
+  return Container(
+    decoration: BoxDecoration(
+      image: image != null
+          ? DecorationImage(image: Image.file(image).image, fit: BoxFit.cover)
+          : null,
+    ),
     width: 400,
     height: 60,
-    child: ElevatedButton(
-      style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all<Color>(
-            const Color.fromARGB(255, 255, 95, 83)),
-      ),
-      onPressed: onClick,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          children: [
-            Icon(icon),
-            const SizedBox(
-              width: 50,
+    child: ClipRect(
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+        child: ElevatedButton(
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all<Color>(
+              const Color.fromARGB(255, 255, 95, 83).withOpacity(0.05),
             ),
-            Text(title),
-          ],
+          ),
+          onPressed: onClick,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                Icon(
+                  icon,
+                  color: Colors.white,
+                ),
+                const SizedBox(
+                  width: 50,
+                ),
+                Text(
+                  title,
+                  style: const TextStyle(color: Colors.white),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     ),
