@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
+import 'package:plus_plus/pages/homepage.dart';
+import 'package:plus_plus/widgets/introPage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class IntroScreens extends StatelessWidget {
-  static const routeName = '/';
+  static const routeName = '/intro';
   const IntroScreens({Key? key}) : super(key: key);
 
   _storeIntroScreens() async {
@@ -14,7 +16,7 @@ class IntroScreens extends StatelessWidget {
 
   void goToHome(BuildContext context) async {
     await _storeIntroScreens();
-    Navigator.pushReplacementNamed(context, '/home');
+    Navigator.pushReplacementNamed(context, HomePage.routeName);
   }
 
   @override
@@ -24,68 +26,23 @@ class IntroScreens extends StatelessWidget {
         globalBackgroundColor: Colors.white,
         scrollPhysics: const BouncingScrollPhysics(),
         pages: [
-          PageViewModel(
-            titleWidget: const Padding(
-              padding: EdgeInsets.only(top: 100),
-              child: Text("Start yout journey with Plus+",
-                  style: TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                  )),
-            ),
+          IntroPage(
+            title: 'Start your journey with Plus+',
             body:
-                "Plus+ is a manual counting app made to ease the capacity management of establishments.",
-            image: Image.asset(
-              'assets/vectors/one.png',
-              height: 400,
-              width: 400,
-            ),
-            decoration: const PageDecoration(
-              imagePadding: EdgeInsets.only(top: 80),
-            ),
-            reverse: false,
+                'Plus+ is a manual counting app made to ease the capacity management of establishments.',
+            imagePath: 'assets/vectors/one.png',
           ),
-          PageViewModel(
-            titleWidget: const Padding(
-              padding: EdgeInsets.only(top: 100),
-              child: Text("Increment or Decrement",
-                  style: TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                  )),
-            ),
+          IntroPage(
+            title: 'Increment or Decrement',
             body:
                 'Press the "Enter" button whenever a customer walks in and press the "Exit" button whenever the costumer walks out.',
-            image: Image.asset(
-              'assets/vectors/two.png',
-              height: 400,
-              width: 400,
-            ),
-            decoration: const PageDecoration(
-              imagePadding: EdgeInsets.only(top: 80),
-            ),
+            imagePath: 'assets/vectors/two.png',
           ),
-          PageViewModel(
-            titleWidget: const Padding(
-              padding: EdgeInsets.only(top: 100),
-              child: Text(
-                "Customize!",
-                style: TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
+          IntroPage(
+            title: 'Customize!',
             body:
-                "You also can choose a background image and set a desired limit in the counting.",
-            image: Image.asset(
-              'assets/vectors/three.png',
-              height: 400,
-              width: 400,
-            ),
-            decoration: const PageDecoration(
-              imagePadding: EdgeInsets.only(top: 80),
-            ),
+                'You also can choose a background image and set a desired limit in the counting.',
+            imagePath: 'assets/vectors/three.png',
           ),
         ],
         onDone: () => goToHome(context),

@@ -1,12 +1,12 @@
 import 'dart:io';
-import 'dart:ui';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:plus_plus/main.dart';
+import 'package:plus_plus/widgets/rectangularButton.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
-  static const routeName = '/home';
+  static const routeName = '/';
   const HomePage({Key? key}) : super(key: key);
 
   @override
@@ -252,52 +252,4 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-}
-
-Widget rectangularButton({
-  required String title,
-  required IconData icon,
-  required VoidCallback onClick,
-  File? image,
-}) {
-  return Container(
-    decoration: BoxDecoration(
-      image: image != null
-          ? DecorationImage(image: Image.file(image).image, fit: BoxFit.cover)
-          : null,
-    ),
-    width: 400,
-    height: 60,
-    child: ClipRect(
-      child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
-        child: ElevatedButton(
-          style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all<Color>(
-              const Color.fromARGB(255, 255, 95, 83).withOpacity(0.05),
-            ),
-          ),
-          onPressed: onClick,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Icon(
-                  icon,
-                  color: Colors.white,
-                ),
-                const SizedBox(
-                  width: 50,
-                ),
-                Text(
-                  title,
-                  style: const TextStyle(color: Colors.white),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    ),
-  );
 }

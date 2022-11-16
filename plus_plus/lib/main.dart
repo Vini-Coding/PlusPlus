@@ -35,6 +35,7 @@ class PlusPlus extends StatelessWidget {
       routes: {
         HomePage.routeName: (context) => const HomePage(),
         Count.routeName: (context) => const Count(),
+        IntroScreens.routeName: (context) => const IntroScreens(),
       },
       debugShowCheckedModeBanner: false,
     );
