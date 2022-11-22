@@ -1,5 +1,4 @@
 # PlusPlus
-Vídeo Demonstração do Aplicativo Plus+
 
 O aplicativo Plus+ é um aplicativo feito para gerenciar melhor a capacidade de lotação em estabelecimentos.
 
