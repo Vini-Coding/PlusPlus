@@ -42,3 +42,4 @@ This is a Flutter Project developed for Learning goals.
 - APK: [https://drive.google.com/drive/folders/1S_PUULovlcHvmkJlfcbFTB3c7Xc_16tB?usp=sharing](https://drive.google.com/drive/u/0/folders/1xCCR_6nZLHGw0KdEiPrXAYo1_yuCjchp) 
 - Logo by: https://www.flaticon.com/
 - Illustration Vectors by: https://storyset.com/
+- [Check my new Project: BMI Check](https://github.com/Vini-Coding/BMI-Check)
